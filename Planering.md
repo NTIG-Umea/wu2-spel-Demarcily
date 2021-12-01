@@ -1,5 +1,7 @@
-1 - Movement
-2 - Collectibles
-3 - Obstacles, death on touch.
+- [ ] Collectibles
 
-Had to change plans.
+- [ ] Map size
+
+- [ ] Movement
+
+- [ ] Obstacles, death on touch.

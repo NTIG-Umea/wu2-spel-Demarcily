@@ -21,5 +21,6 @@ const config = {
     parent: 'game'
 };
 
+
 // initiera spelet
 new Phaser.Game(config);

@@ -29,4 +29,5 @@ class PreloadScene extends Phaser.Scene {
     }
 }
 
+
 export default PreloadScene;

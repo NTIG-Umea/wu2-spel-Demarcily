@@ -6,6 +6,7 @@ class PlayScene extends Phaser.Scene {
     create() {
         // variabel för att hålla koll på hur många gånger vi spikat oss själva
         this.spiked = 0;
+        this.score = 0;
 
         // ladda spelets bakgrundsbild, statisk
         // setOrigin behöver användas för att den ska ritas från top left
@@ -25,7 +26,7 @@ class PlayScene extends Phaser.Scene {
 
         this.foods = this.physics.add.group({
             key: 'food',
-            repeat: 12,
+            repeat: 8,
             setXY: { x: 30, y: 0, stepX: 70 }
         });
 
@@ -85,6 +86,9 @@ class PlayScene extends Phaser.Scene {
         // krocka med platforms lagret
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.foods, this.platforms);
+
+        this.physics.add.overlap(this.player, this.foods, collectFood, null, this);
+
 
         // skapa text på spelet, texten är tom
         // textens innehåll sätts med updateText() metoden
@@ -160,7 +164,7 @@ class PlayScene extends Phaser.Scene {
     // metoden updateText för att uppdatera overlaytexten i spelet
     updateText() {
         this.text.setText(
-            `Arrow keys to move. Space to jump. W to pause. Spiked: ${this.spiked}`
+            `Arrow keys to move. Space to jump. W to pause. Spiked: ${this.spiked}. Score: ${this.score}`
         );
     }
 
@@ -207,6 +211,24 @@ class PlayScene extends Phaser.Scene {
             frameRate: 10
         });
     }
+    
 }
+
+
+function collectFood(player, food) {
+    food.disableBody(true, true);
+    this.score += 10;
+    this.updateText();
+
+    if (this.foods.countActive(true) === 0)
+    {
+        this.foods.children.iterate(function (child) {
+
+            child.enableBody(true, child.x, 0, true, true);
+
+        });
+    }
+}
+
 
 export default PlayScene;

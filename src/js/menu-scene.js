@@ -15,7 +15,7 @@ class PreloadScene extends Phaser.Scene {
             fixedHeight: this.game.config.height,
         });
 
-        this.text = this.add.text(0, (this.game.config.height /2) + 10, 'Arrow keys to move\nW to play', {
+        this.text = this.add.text(0, (this.game.config.height /2) + 10, `Arrow keys to move\nW to start`, {
             fontFamily: '"Mochiy Pop P One"',
             fontSize: '32px',
             fill: '#ff0000',
@@ -31,6 +31,8 @@ class PreloadScene extends Phaser.Scene {
             this.scene.setVisible(false);
         }
     }
+
+
 }
 
 export default PreloadScene;

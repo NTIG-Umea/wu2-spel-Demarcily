@@ -23,15 +23,13 @@ class PlayScene extends Phaser.Scene {
         // keyboard cursors
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.stars = this.physics.add.group({
-            key: 'star',
+        this.foods = this.physics.add.group({
+            key: 'food',
             repeat: 12,
             setXY: { x: 30, y: 0, stepX: 70 }
         });
 
-        this.stars.children.iterate(function (child) {
-
-            //  Give each star a slightly different bounce
+        this.foods.children.iterate(function (child) {
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     
         });
@@ -86,7 +84,7 @@ class PlayScene extends Phaser.Scene {
 
         // krocka med platforms lagret
         this.physics.add.collider(this.player, this.platforms);
-        this.physics.add.collider(this.stars, this.platforms);
+        this.physics.add.collider(this.foods, this.platforms);
 
         // skapa text på spelet, texten är tom
         // textens innehåll sätts med updateText() metoden

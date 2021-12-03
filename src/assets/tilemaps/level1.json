@@ -1,58 +1,21 @@
 { "compressionlevel":-1,
- "height":7,
+ "height":8,
  "infinite":false,
  "layers":[
         {
-         "compression":"",
-         "data":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkAAAAKAAAACwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQAAAAoAAAALAAAAAAAAAAAAAAAAAAAALQAAAC4AAAAvAAAAMAAAAC0AAAAuAAAAJgAAAAAAAAAnAAAALgAAAC8AAAAwAAAALQAAAC4AAAA=",
-         "encoding":"base64",
-         "height":7,
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 46, 47, 48, 47, 46, 48, 47, 46, 46, 47, 46, 48, 46, 45],
+         "height":8,
          "id":1,
          "name":"Platforms",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":14,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":3,
-         "name":"Spikes",
-         "objects":[
-                {
-                 "gid":76,
-                 "height":64,
-                 "id":3,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":64,
-                 "x":448,
-                 "y":448
-                }, 
-                {
-                 "gid":76,
-                 "height":64,
-                 "id":4,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":64,
-                 "x":704,
-                 "y":384
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
+         "width":15,
          "x":0,
          "y":0
         }],
- "nextlayerid":5,
- "nextobjectid":5,
+ "nextlayerid":3,
+ "nextobjectid":1,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
@@ -61,7 +24,7 @@
         {
          "columns":11,
          "firstgid":1,
-         "image":"..\/tilesets\/jefrens_tilesheet.png",
+         "image":"..\/tilesets\/jefrens_platformer.png",
          "imageheight":448,
          "imagewidth":704,
          "margin":0,
@@ -74,5 +37,5 @@
  "tilewidth":64,
  "type":"map",
  "version":"1.6",
- "width":14
+ "width":15
 }

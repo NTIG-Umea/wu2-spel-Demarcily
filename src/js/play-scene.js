@@ -20,7 +20,7 @@ class PlayScene extends Phaser.Scene {
         this.platforms = map.createLayer('Platforms', tileset);
         this.platforms.setCollisionByExclusion(-1, true);
        
-        this.player = this.physics.add.sprite(50, 300, 'player');
+        this.player = this.physics.add.sprite(50, 416, 'player');
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(true);
 
@@ -55,6 +55,9 @@ class PlayScene extends Phaser.Scene {
         this.events.on('resume', function () {
             console.log('Play scene resumed');
         });
+
+        this.scene.pause();
+        this.scene.launch('MenuScene');
     }
 
     update() {
@@ -98,7 +101,7 @@ class PlayScene extends Phaser.Scene {
 
     updateText() {
         this.text.setText(
-            `Arrow keys to move. Space to jump. W to pause. Score: ${this.score}`
+            `W to pause. Score: ${this.score}`
         );
     }
 

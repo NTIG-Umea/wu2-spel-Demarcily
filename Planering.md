@@ -8,6 +8,10 @@
 
 - [ ] 3 lives.
 
-- [ ] Start screen, controls, space to start  (Make either new .js or change menu scene to start screen)
+* Extra Stuff
+
+- [ ] Start screen, controls, space to start
 
 - [ ] Randomly Generated Collectibles and Obstacles.
+
+- [ ] Visible Hearts, goes away when dying.

@@ -4,7 +4,6 @@ class PlayScene extends Phaser.Scene {
     }
 
     create() {
-        this.spiked = 0;
         this.score = 0;
 
         this.add.image(0, 0, 'background').setOrigin(0, 0);
@@ -16,16 +15,7 @@ class PlayScene extends Phaser.Scene {
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.foods = this.physics.add.group({
-            key: 'food',
-            repeat: 8,
-            setXY: { x: 30, y: 0, stepX: 70 }
-        });
-
-        this.foods.children.iterate(function (child) {
-            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    
-        });
+        
 
         this.platforms = map.createLayer('Platforms', tileset);
         this.platforms.setCollisionByExclusion(-1, true);
@@ -34,28 +24,17 @@ class PlayScene extends Phaser.Scene {
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(true);
 
-        this.spikes = this.physics.add.group({
-            allowGravity: false,
-            immovable: true
+        this.foods = this.physics.add.group({
+            key: 'food',
+            repeat: 13,
+            setXY: { x: 30, y: 0, stepX: 70 }
         });
 
-        console.log(this.platforms);
-        map.getObjectLayer('Spikes').objects.forEach((spike) => {
-            const spikeSprite = this.spikes
-                .create(spike.x, spike.y - spike.height, 'spike')
-                .setOrigin(0);
-            spikeSprite.body
-                .setSize(spike.width, spike.height - 20)
-                .setOffset(0, 20);
+        this.foods.children.iterate(function (child) {
+            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    
         });
 
-        this.physics.add.collider(
-            this.player,
-            this.spikes,
-            this.playerHit,
-            null,
-            this
-        );
 
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.foods, this.platforms);
@@ -119,25 +98,8 @@ class PlayScene extends Phaser.Scene {
 
     updateText() {
         this.text.setText(
-            `Arrow keys to move. Space to jump. W to pause. Spiked: ${this.spiked}. Score: ${this.score}`
+            `Arrow keys to move. Space to jump. W to pause. Score: ${this.score}`
         );
-    }
-
-    playerHit(player, spike) {
-        this.spiked++;
-        player.setVelocity(0, 0);
-        player.setX(50);
-        player.setY(300);
-        player.play('idle', true);
-        let tw = this.tweens.add({
-            targets: player,
-            alpha: { start: 0, to: 1 },
-            tint: { start: 0xff0000, to: 0xffffff },
-            duration: 100,
-            ease: 'Linear',
-            repeat: 5
-        });
-        this.updateText();
     }
 
     initAnims() {

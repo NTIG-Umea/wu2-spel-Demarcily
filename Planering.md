@@ -16,7 +16,7 @@
 
 - [x] 3 lives.
 
-- [ ] Respawn
+- [x] Respawn
 
 - [ ] Protection on death
 

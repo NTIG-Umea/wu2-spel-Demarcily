@@ -5,6 +5,8 @@ class PlayScene extends Phaser.Scene {
 
     create() {
         this.score = 0;
+        this.gameOver = false;
+        this.lives = 3;
 
         this.add.image(0, 0, 'background').setOrigin(0, 0);
 
@@ -32,13 +34,18 @@ class PlayScene extends Phaser.Scene {
 
         this.foods.children.iterate(function (child) {
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    
         });
+
+        this.icicles = this.physics.add.group();
+
 
 
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.foods, this.platforms);
+
         this.physics.add.overlap(this.player, this.foods, this.collectFood, null, this);
+        this.physics.add.collider(this.player, this.icicles, this.hitBomb, null, this);
+
 
         this.text = this.add.text(16, 16, '', {
             fontSize: '20px',
@@ -61,6 +68,10 @@ class PlayScene extends Phaser.Scene {
     }
 
     update() {
+        if (this.gameOver) {
+            return;
+        }
+
         if (this.keyObj.isDown) {
             this.scene.pause();
             this.scene.launch('MenuScene');
@@ -88,7 +99,7 @@ class PlayScene extends Phaser.Scene {
             (this.cursors.space.isDown || this.cursors.up.isDown) &&
             this.player.body.onFloor()
         ) {
-            this.player.setVelocityY(-350);
+            this.player.setVelocityY(-250);
             this.player.play('jump', true);
         }
 
@@ -101,7 +112,7 @@ class PlayScene extends Phaser.Scene {
 
     updateText() {
         this.text.setText(
-            `W to pause. Score: ${this.score}`
+            `W to pause. Score: ${this.score}. Lives: ${this.lives}`
         );
     }
 
@@ -139,6 +150,34 @@ class PlayScene extends Phaser.Scene {
             this.foods.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
+            var x = Phaser.Math.Between(0, 960);
+
+            this.icicle = this.icicles.create(x, 0, 'icicle');
+            this.icicle.setBounce(1);
+            this.icicle.setCollideWorldBounds(true);
+            this.icicle.setVelocity(Phaser.Math.Between(-200, 200), 20);
+            this.icicle.allowGravity = false;
+        }
+    }
+
+    hitBomb(player, icile) {
+        this.lives -= 1;
+        this.updateText();
+        if (this.lives > 0) {
+            this.player.setPosition(50, 416);
+            this.tweens.add({
+                targets: player,
+                alpha: { start: 0, to: 1 },
+                tint: { start: 0xff0000, to: 0xffffff },
+                duration: 100,
+                ease: 'Linear',
+                repeat: 5
+            });  
+        } else {
+            this.physics.pause();
+            this.gameOver = true;
+            this.player.setTint(0xff0000);
+            this.player.anims.play('turn');
         }
     }
 }

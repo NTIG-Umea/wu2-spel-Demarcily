@@ -8,13 +8,17 @@
 
 - [ ] Make icicle fall through floor and make more icicles fall every now and again the more iterations are completed.
 
-- [ ] Replace star and bomb with food and a more fitting obstacle
+- [ ] Replace star and bomb with food and a more fitting obstacles
 
 
 
 * Extra Stuff
 
-- [ ] 3 lives.
+- [x] 3 lives.
+
+- [ ] Respawn
+
+- [ ] Protection on death
 
 - [ ] Start screen, controls, space to start
 

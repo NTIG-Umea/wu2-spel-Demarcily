@@ -6,6 +6,7 @@ class PlayScene extends Phaser.Scene {
     create() {
         this.score = 0;
         this.gameOver = false;
+        this.lives = 3;
 
         this.add.image(0, 0, 'background').setOrigin(0, 0);
 
@@ -111,7 +112,7 @@ class PlayScene extends Phaser.Scene {
 
     updateText() {
         this.text.setText(
-            `W to pause. Score: ${this.score}`
+            `W to pause. Score: ${this.score}. Lives: ${this.lives}`
         );
     }
 
@@ -160,13 +161,24 @@ class PlayScene extends Phaser.Scene {
     }
 
     hitBomb(player, icile) {
-        this.physics.pause();
-
-        this.player.setTint(0xff0000);
-    
-        this.player.anims.play('turn');
-    
-        this.gameOver = true;
+        this.lives -= 1;
+        this.updateText();
+        if (this.lives > 0) {
+            this.player.setPosition(50, 416);
+            this.tweens.add({
+                targets: player,
+                alpha: { start: 0, to: 1 },
+                tint: { start: 0xff0000, to: 0xffffff },
+                duration: 100,
+                ease: 'Linear',
+                repeat: 5
+            });  
+        } else {
+            this.physics.pause();
+            this.gameOver = true;
+            this.player.setTint(0xff0000);
+            this.player.anims.play('turn');
+        }
     }
 }
 

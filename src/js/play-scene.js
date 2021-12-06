@@ -98,7 +98,7 @@ class PlayScene extends Phaser.Scene {
             (this.cursors.space.isDown || this.cursors.up.isDown) &&
             this.player.body.onFloor()
         ) {
-            this.player.setVelocityY(-200);
+            this.player.setVelocityY(-250);
             this.player.play('jump', true);
         }
 
@@ -149,9 +149,9 @@ class PlayScene extends Phaser.Scene {
             this.foods.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
-            var x = Phaser.Math.Between(0, 800);
+            var x = Phaser.Math.Between(0, 960);
 
-            this.icicle = this.icicles.create(x, 16, 'icicle');
+            this.icicle = this.icicles.create(x, 0, 'icicle');
             this.icicle.setBounce(1);
             this.icicle.setCollideWorldBounds(true);
             this.icicle.setVelocity(Phaser.Math.Between(-200, 200), 20);

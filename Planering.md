@@ -2,9 +2,11 @@
 
 - [x] Map size
 
-- [ ] Movement
+- [x] Movement
 
-- [ ] Obstacles, death on touch.
+- [x] Obstacles, death on touch.
+
+- [ ] Make icicle fall through floor and make more icicles fall every now and again the more iterations are completed.
 
 - [ ] Replace star and bomb with food and a more fitting obstacle
 

@@ -5,6 +5,7 @@ class PlayScene extends Phaser.Scene {
 
     create() {
         this.score = 0;
+        this.gameOver = false;
 
         this.add.image(0, 0, 'background').setOrigin(0, 0);
 
@@ -32,13 +33,18 @@ class PlayScene extends Phaser.Scene {
 
         this.foods.children.iterate(function (child) {
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    
         });
+
+        this.icicles = this.physics.add.group();
+
 
 
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.foods, this.platforms);
+
         this.physics.add.overlap(this.player, this.foods, this.collectFood, null, this);
+        this.physics.add.collider(this.player, this.icicles, this.hitBomb, null, this);
+
 
         this.text = this.add.text(16, 16, '', {
             fontSize: '20px',
@@ -61,6 +67,10 @@ class PlayScene extends Phaser.Scene {
     }
 
     update() {
+        if (this.gameOver) {
+            return;
+        }
+
         if (this.keyObj.isDown) {
             this.scene.pause();
             this.scene.launch('MenuScene');
@@ -88,7 +98,7 @@ class PlayScene extends Phaser.Scene {
             (this.cursors.space.isDown || this.cursors.up.isDown) &&
             this.player.body.onFloor()
         ) {
-            this.player.setVelocityY(-350);
+            this.player.setVelocityY(-200);
             this.player.play('jump', true);
         }
 
@@ -139,7 +149,24 @@ class PlayScene extends Phaser.Scene {
             this.foods.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
+            var x = Phaser.Math.Between(0, 800);
+
+            this.icicle = this.icicles.create(x, 16, 'icicle');
+            this.icicle.setBounce(1);
+            this.icicle.setCollideWorldBounds(true);
+            this.icicle.setVelocity(Phaser.Math.Between(-200, 200), 20);
+            this.icicle.allowGravity = false;
         }
+    }
+
+    hitBomb(player, icile) {
+        this.physics.pause();
+
+        this.player.setTint(0xff0000);
+    
+        this.player.anims.play('turn');
+    
+        this.gameOver = true;
     }
 }
 

@@ -58,7 +58,7 @@ class PlayScene extends Phaser.Scene {
         this.text.setScrollFactor(0);
         this.updateText();
 
-        this.keyObj = this.input.keyboard.addKey('W', true, false);
+        this.keyObj = this.input.keyboard.addKey('space', true, false);
 
         this.events.on('pause', function () {
             console.log('Play scene paused');
@@ -100,10 +100,7 @@ class PlayScene extends Phaser.Scene {
             }
         }
 
-        if (
-            (this.cursors.space.isDown || this.cursors.up.isDown) &&
-            this.player.body.onFloor()
-        ) {
+        if (this.cursors.up.isDown && this.player.body.onFloor()) {
             this.player.setVelocityY(-250);
             this.player.play('jump', true);
         }
@@ -117,7 +114,7 @@ class PlayScene extends Phaser.Scene {
 
     updateText() {
         this.text.setText(
-            `W to pause. Score: ${this.score}. Lives: ${this.lives}`
+            `space to pause. Score: ${this.score}. Lives: ${this.lives}`
         );
     }
 

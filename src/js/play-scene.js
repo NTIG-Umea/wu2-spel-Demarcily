@@ -7,6 +7,7 @@ class PlayScene extends Phaser.Scene {
         this.score = 0;
         this.gameOver = false;
         this.lives = 3;
+        this.iteration = 0;
 
         if (localStorage.getItem('Hscore') == null) {
             localStorage.setItem('Hscore', 0);
@@ -151,7 +152,8 @@ class PlayScene extends Phaser.Scene {
                 child.enableBody(true, child.x, 0, true, true);
             });
             var x = Phaser.Math.Between(0, 960);
-
+            this.iteration += 1;
+            
             this.icicle = this.icicles.create(x, 0, 'icicle');
             this.icicle.setBounce(1);
             this.icicle.setCollideWorldBounds(true);

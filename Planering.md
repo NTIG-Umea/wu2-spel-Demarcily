@@ -4,24 +4,29 @@
 
 - [x] Movement
 
-- [x] Obstacles, death on touch.
+- [x] Obstacles, death on touch
 
-- [ ] Make icicle fall through floor and make more icicles fall every now and again the more iterations are completed.
+- [x] Highscore
+
+- [ ] Make icicle fall through floor and make more icicles fall every now and again the more iterations are completed
 
 - [ ] Replace star and bomb with food and a more fitting obstacles
+
+- [ ] More random spawns for generated Collectibles and Obstacles
+
 
 
 
 * Extra Stuff
 
-- [x] 3 lives.
+- [x] 3 lives
 
 - [x] Respawn
 
 - [ ] Protection on death
 
-- [ ] Start screen, controls, space to start
+- [x] Start screen, controls, space to start
 
-- [ ] More random spawns for generated Collectibles and Obstacles.
+- [ ] Restart
 
-- [ ] Visible Hearts, goes away when dying.
+- [ ] Visible Hearts, goes away when dying

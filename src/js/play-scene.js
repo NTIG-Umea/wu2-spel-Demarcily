@@ -8,6 +8,10 @@ class PlayScene extends Phaser.Scene {
         this.gameOver = false;
         this.lives = 3;
 
+        if (localStorage.getItem('Hscore') == null) {
+            localStorage.setItem('Hscore', 0);
+        }
+
         this.add.image(0, 0, 'background').setOrigin(0, 0);
 
         const map = this.make.tilemap({ key: 'map' });
@@ -37,14 +41,12 @@ class PlayScene extends Phaser.Scene {
         });
 
         this.icicles = this.physics.add.group();
-
-
-
+        
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.foods, this.platforms);
 
         this.physics.add.overlap(this.player, this.foods, this.collectFood, null, this);
-        this.physics.add.collider(this.player, this.icicles, this.hitBomb, null, this);
+        this.physics.add.overlap(this.player, this.icicles, this.hitBomb, null, this);
 
 
         this.text = this.add.text(16, 16, '', {
@@ -54,7 +56,7 @@ class PlayScene extends Phaser.Scene {
         this.text.setScrollFactor(0);
         this.updateText();
 
-        this.keyObj = this.input.keyboard.addKey('W', true, false);
+        this.keyObj = this.input.keyboard.addKey('space', true, false);
 
         this.events.on('pause', function () {
             console.log('Play scene paused');
@@ -74,6 +76,7 @@ class PlayScene extends Phaser.Scene {
 
         if (this.keyObj.isDown) {
             this.scene.pause();
+            this.updateScore();
             this.scene.launch('MenuScene');
         }
 
@@ -95,10 +98,7 @@ class PlayScene extends Phaser.Scene {
             }
         }
 
-        if (
-            (this.cursors.space.isDown || this.cursors.up.isDown) &&
-            this.player.body.onFloor()
-        ) {
+        if (this.cursors.up.isDown && this.player.body.onFloor()) {
             this.player.setVelocityY(-250);
             this.player.play('jump', true);
         }
@@ -112,7 +112,7 @@ class PlayScene extends Phaser.Scene {
 
     updateText() {
         this.text.setText(
-            `W to pause. Score: ${this.score}. Lives: ${this.lives}`
+            `space to pause. Score: ${this.score}. Lives: ${this.lives}`
         );
     }
 
@@ -172,12 +172,19 @@ class PlayScene extends Phaser.Scene {
                 duration: 100,
                 ease: 'Linear',
                 repeat: 5
-            });  
+            });
         } else {
             this.physics.pause();
             this.gameOver = true;
             this.player.setTint(0xff0000);
             this.player.anims.play('turn');
+            this.updateScore();
+        }
+    }
+
+    updateScore() {
+        if (this.score > localStorage.getItem('Hscore')) {
+            localStorage.setItem('Hscore', this.score);
         }
     }
 }

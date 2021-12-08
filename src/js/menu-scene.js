@@ -6,7 +6,7 @@ class PreloadScene extends Phaser.Scene {
     create() {
         this.keyObj = this.input.keyboard.addKey('W', true, false);
 
-        this.text = this.add.text(0, (this.game.config.height / 2) - 64, 'PAUSED', {
+        this.text = this.add.text(0, (this.game.config.height / 2) - 150, 'PAUSED', {
             fontFamily: '"Mochiy Pop P One"',
             fontSize: '64px',
             fill: '#ff0000',
@@ -15,7 +15,7 @@ class PreloadScene extends Phaser.Scene {
             fixedHeight: this.game.config.height,
         });
 
-        this.text = this.add.text(0, (this.game.config.height /2) + 10, `Arrow keys to move\nW to start`, {
+        this.text = this.add.text(0, (this.game.config.height /2) - 64, `Arrow keys to move\nW to start\nHighscore: ${localStorage.getItem('Hscore')}`, {
             fontFamily: '"Mochiy Pop P One"',
             fontSize: '32px',
             fill: '#ff0000',

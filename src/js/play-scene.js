@@ -8,6 +8,10 @@ class PlayScene extends Phaser.Scene {
         this.gameOver = false;
         this.lives = 3;
 
+        if (localStorage.getItem('Hscore') == null) {
+            localStorage.setItem('Hscore', 0);
+        }
+
         this.add.image(0, 0, 'background').setOrigin(0, 0);
 
         const map = this.make.tilemap({ key: 'map' });
@@ -74,6 +78,7 @@ class PlayScene extends Phaser.Scene {
 
         if (this.keyObj.isDown) {
             this.scene.pause();
+            this.updateScore();
             this.scene.launch('MenuScene');
         }
 
@@ -172,12 +177,19 @@ class PlayScene extends Phaser.Scene {
                 duration: 100,
                 ease: 'Linear',
                 repeat: 5
-            });  
+            });
         } else {
             this.physics.pause();
             this.gameOver = true;
             this.player.setTint(0xff0000);
             this.player.anims.play('turn');
+            this.updateScore();
+        }
+    }
+
+    updateScore() {
+        if (this.score > localStorage.getItem('Hscore')) {
+            localStorage.setItem('Hscore', this.score);
         }
     }
 }

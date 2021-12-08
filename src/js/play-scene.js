@@ -41,14 +41,12 @@ class PlayScene extends Phaser.Scene {
         });
 
         this.icicles = this.physics.add.group();
-
-
-
+        
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.foods, this.platforms);
 
         this.physics.add.overlap(this.player, this.foods, this.collectFood, null, this);
-        this.physics.add.collider(this.player, this.icicles, this.hitBomb, null, this);
+        this.physics.add.overlap(this.player, this.icicles, this.hitBomb, null, this);
 
 
         this.text = this.add.text(16, 16, '', {

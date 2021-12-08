@@ -7,6 +7,7 @@ class PlayScene extends Phaser.Scene {
         this.score = 0;
         this.gameOver = false;
         this.lives = 3;
+        this.iteration = 0;
 
         if (localStorage.getItem('Hscore') == null) {
             localStorage.setItem('Hscore', 0);
@@ -67,6 +68,7 @@ class PlayScene extends Phaser.Scene {
 
         this.scene.pause();
         this.scene.launch('MenuScene');
+
     }
 
     update() {
@@ -150,13 +152,8 @@ class PlayScene extends Phaser.Scene {
             this.foods.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
-            var x = Phaser.Math.Between(0, 960);
-
-            this.icicle = this.icicles.create(x, 0, 'icicle');
-            this.icicle.setBounce(1);
-            this.icicle.setCollideWorldBounds(true);
-            this.icicle.setVelocity(Phaser.Math.Between(-200, 200), 20);
-            this.icicle.allowGravity = false;
+            this.iteration += 1;
+            this.spawnIcicle();
         }
     }
 
@@ -186,6 +183,16 @@ class PlayScene extends Phaser.Scene {
         if (this.score > localStorage.getItem('Hscore')) {
             localStorage.setItem('Hscore', this.score);
         }
+    }
+
+    spawnIcicle() {
+        var x = Phaser.Math.Between(0, 960);
+
+        this.icicle = this.icicles.create(x, 0, 'icicle');
+        this.icicle.setBounce(1);
+        this.icicle.setCollideWorldBounds(true);
+        this.icicle.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        this.icicle.allowGravity = false;
     }
 }
 

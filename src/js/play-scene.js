@@ -45,6 +45,7 @@ class PlayScene extends Phaser.Scene {
         
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.foods, this.platforms);
+        this.physics.add.collider(this.icicles, this.platforms, this.destroyIcicle, null, this);
 
         this.physics.add.overlap(this.player, this.foods, this.collectFood, null, this);
         this.physics.add.overlap(this.player, this.icicles, this.hitBomb, null, this);
@@ -68,7 +69,6 @@ class PlayScene extends Phaser.Scene {
 
         this.scene.pause();
         this.scene.launch('MenuScene');
-
     }
 
     update() {
@@ -110,6 +110,12 @@ class PlayScene extends Phaser.Scene {
         } else if (this.player.body.velocity.x < 0) {
             this.player.setFlipX(true);
         }
+        if (Math.round(Math.random()* 10) > 9) {
+            this.spawnIcicle();
+        }
+
+        
+
     }
 
     updateText() {
@@ -189,10 +195,13 @@ class PlayScene extends Phaser.Scene {
         var x = Phaser.Math.Between(0, 960);
 
         this.icicle = this.icicles.create(x, 0, 'icicle');
-        this.icicle.setBounce(1);
         this.icicle.setCollideWorldBounds(true);
-        this.icicle.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        this.icicle.setVelocity(Phaser.Math.Between(-50, 50), 20);
         this.icicle.allowGravity = false;
+    }
+
+    destroyIcicle(icicle, platform) {
+        icicle.destroy();
     }
 }
 

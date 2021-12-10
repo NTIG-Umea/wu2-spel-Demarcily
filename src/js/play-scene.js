@@ -7,7 +7,7 @@ class PlayScene extends Phaser.Scene {
         this.score = 0;
         this.gameOver = false;
         this.lives = 3;
-        this.iteration = 0;
+        this.spawnRate = 0;
 
         if (localStorage.getItem('Hscore') == null) {
             localStorage.setItem('Hscore', 0);
@@ -110,12 +110,9 @@ class PlayScene extends Phaser.Scene {
         } else if (this.player.body.velocity.x < 0) {
             this.player.setFlipX(true);
         }
-        if (Math.round(Math.random()* 10) > 9) {
+        if (Math.random() * 10 > 10 - this.spawnRate) {
             this.spawnIcicle();
         }
-
-        
-
     }
 
     updateText() {
@@ -158,8 +155,7 @@ class PlayScene extends Phaser.Scene {
             this.foods.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
-            this.iteration += 1;
-            this.spawnIcicle();
+            this.spawnRate += 0.1;
         }
     }
 

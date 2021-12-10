@@ -48,8 +48,7 @@ class PlayScene extends Phaser.Scene {
         this.physics.add.collider(this.icicles, this.platforms, this.destroyIcicle, null, this);
 
         this.physics.add.overlap(this.player, this.foods, this.collectFood, null, this);
-        this.physics.add.overlap(this.player, this.icicles, this.hitBomb, null, this);
-
+        this.playerHitbox = this.physics.add.overlap(this.player, this.icicles, this.hitBomb, null, this);
 
         this.text = this.add.text(16, 16, '', {
             fontSize: '20px',
@@ -162,6 +161,8 @@ class PlayScene extends Phaser.Scene {
     hitBomb(player, icile) {
         this.lives -= 1;
         this.updateText();
+        this.physics.world.removeCollider(this.playerHitbox);
+    
         if (this.lives > 0) {
             this.player.setPosition(50, 416);
             this.tweens.add({

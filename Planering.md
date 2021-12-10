@@ -23,7 +23,7 @@
 
 - [x] Respawn
 
-- [ ] Protection on death
+- [x] Protection on death
 
 - [x] Start screen, controls, space to start
 

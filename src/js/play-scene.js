@@ -22,8 +22,6 @@ class PlayScene extends Phaser.Scene {
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        
-
         this.platforms = map.createLayer('Platforms', tileset);
         this.platforms.setCollisionByExclusion(-1, true);
        
@@ -34,11 +32,11 @@ class PlayScene extends Phaser.Scene {
         this.foods = this.physics.add.group({
             key: 'food',
             repeat: 13,
-            setXY: { x: 30, y: 0, stepX: 70 }
+            setXY: { x: 25, y: 0, stepX: 70 }
         });
 
         this.foods.children.iterate(function (child) {
-            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+            child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.4));
         });
 
         this.icicles = this.physics.add.group();
@@ -109,6 +107,7 @@ class PlayScene extends Phaser.Scene {
         } else if (this.player.body.velocity.x < 0) {
             this.player.setFlipX(true);
         }
+
         if (Math.random() * 10 > 10 - this.spawnRate) {
             this.spawnIcicle();
         }
@@ -159,12 +158,11 @@ class PlayScene extends Phaser.Scene {
     }
 
     hitBomb(player, icile) {
+        this.physics.world.removeCollider(this.playerHitbox);
         this.lives -= 1;
         this.updateText();
-        this.physics.world.removeCollider(this.playerHitbox);
     
         if (this.lives > 0) {
-            this.player.setPosition(50, 416);
             this.tweens.add({
                 targets: player,
                 alpha: { start: 0, to: 1 },
@@ -177,9 +175,14 @@ class PlayScene extends Phaser.Scene {
             this.physics.pause();
             this.gameOver = true;
             this.player.setTint(0xff0000);
-            this.player.anims.play('turn');
             this.updateScore();
         }
+        var timer = this.time.addEvent({
+            delay: 3000,          
+            callback: this.restoreHitbox,
+            callbackScope: this,
+        });
+       
     }
 
     updateScore() {
@@ -199,6 +202,10 @@ class PlayScene extends Phaser.Scene {
 
     destroyIcicle(icicle, platform) {
         icicle.destroy();
+    }
+
+    restoreHitbox() {
+        this.playerHitbox = this.physics.add.overlap(this.player, this.icicles, this.hitBomb, null, this);
     }
 }
 

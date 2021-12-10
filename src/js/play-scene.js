@@ -7,7 +7,7 @@ class PlayScene extends Phaser.Scene {
         this.score = 0;
         this.gameOver = false;
         this.lives = 3;
-        this.iteration = 0;
+        this.spawnRate = 0;
 
         if (localStorage.getItem('Hscore') == null) {
             localStorage.setItem('Hscore', 0);
@@ -45,6 +45,7 @@ class PlayScene extends Phaser.Scene {
         
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.foods, this.platforms);
+        this.physics.add.collider(this.icicles, this.platforms, this.destroyIcicle, null, this);
 
         this.physics.add.overlap(this.player, this.foods, this.collectFood, null, this);
         this.physics.add.overlap(this.player, this.icicles, this.hitBomb, null, this);
@@ -68,7 +69,6 @@ class PlayScene extends Phaser.Scene {
 
         this.scene.pause();
         this.scene.launch('MenuScene');
-
     }
 
     update() {
@@ -109,6 +109,9 @@ class PlayScene extends Phaser.Scene {
             this.player.setFlipX(false);
         } else if (this.player.body.velocity.x < 0) {
             this.player.setFlipX(true);
+        }
+        if (Math.random() * 10 > 10 - this.spawnRate) {
+            this.spawnIcicle();
         }
     }
 
@@ -152,8 +155,7 @@ class PlayScene extends Phaser.Scene {
             this.foods.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
-            this.iteration += 1;
-            this.spawnIcicle();
+            this.spawnRate += 0.1;
         }
     }
 
@@ -189,10 +191,13 @@ class PlayScene extends Phaser.Scene {
         var x = Phaser.Math.Between(0, 960);
 
         this.icicle = this.icicles.create(x, 0, 'icicle');
-        this.icicle.setBounce(1);
         this.icicle.setCollideWorldBounds(true);
-        this.icicle.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        this.icicle.setVelocity(Phaser.Math.Between(-50, 50), 20);
         this.icicle.allowGravity = false;
+    }
+
+    destroyIcicle(icicle, platform) {
+        icicle.destroy();
     }
 }
 

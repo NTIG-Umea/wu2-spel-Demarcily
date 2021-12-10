@@ -8,11 +8,11 @@
 
 - [x] Highscore
 
-- [ ] Make icicle fall through floor and make more icicles fall every now and again the more iterations are completed
+- [x] Make icicle fall through floor and make more icicles fall every now and again the more iterations are completed
 
 - [ ] Replace star and bomb with food and a more fitting obstacles
 
-- [ ] More random spawns for generated Collectibles and Obstacles
+- [x] More random spawns for generated Obstacles
 
 
 

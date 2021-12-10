@@ -195,8 +195,7 @@ class PlayScene extends Phaser.Scene {
         var x = Phaser.Math.Between(0, 960);
 
         this.icicle = this.icicles.create(x, 0, 'icicle');
-        this.icicle.setCollideWorldBounds(true);
-        this.icicle.setVelocity(Phaser.Math.Between(-50, 50), 20);
+        this.icicle.setVelocity(Phaser.Math.Between(-50, 25), 15);
         this.icicle.allowGravity = false;
     }
 

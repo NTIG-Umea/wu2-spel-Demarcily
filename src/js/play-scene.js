@@ -16,13 +16,13 @@ class PlayScene extends Phaser.Scene {
         this.add.image(0, 0, 'background').setOrigin(0, 0);
 
         const map = this.make.tilemap({ key: 'map' });
-        const tileset = map.addTilesetImage('jefrens_platformer', 'tiles');
+        const tileset = map.addTilesetImage('christmasTileset', 'tiles');
 
         this.initAnims();
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.platforms = map.createLayer('Platforms', tileset);
+        this.platforms = map.createLayer('Platform', tileset);
         this.platforms.setCollisionByExclusion(-1, true);
        
         this.player = this.physics.add.sprite(50, 416, 'player');

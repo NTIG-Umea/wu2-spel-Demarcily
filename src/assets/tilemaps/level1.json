@@ -3,10 +3,10 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 46, 47, 48, 47, 46, 48, 47, 46, 46, 47, 46, 48, 46, 45],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37],
          "height":8,
          "id":1,
-         "name":"Platforms",
+         "name":"Platform",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -14,7 +14,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":3,
+ "nextlayerid":2,
  "nextobjectid":1,
  "orientation":"orthogonal",
  "renderorder":"right-down",
@@ -22,15 +22,15 @@
  "tileheight":64,
  "tilesets":[
         {
-         "columns":11,
+         "columns":16,
          "firstgid":1,
-         "image":"..\/tilesets\/jefrens_platformer.png",
-         "imageheight":448,
-         "imagewidth":704,
+         "image":"..\/tilesets\/christmasTileset.png",
+         "imageheight":1024,
+         "imagewidth":1024,
          "margin":0,
-         "name":"jefrens_platformer",
+         "name":"christmasTileset",
          "spacing":0,
-         "tilecount":77,
+         "tilecount":256,
          "tileheight":64,
          "tilewidth":64
         }],

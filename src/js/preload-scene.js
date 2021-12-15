@@ -8,7 +8,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.setBaseURL('/assets');
         this.load.image('food', '/images/star.png');
         this.load.image('icicle', '/images/bomb.png');
-        this.load.image('background', '/images/backgroundExtend.png');
+        this.load.image('background', '/images/background.png');
         this.load.atlas(
             'player',
             '/images/jefrens_hero.png',
@@ -19,7 +19,7 @@ class PreloadScene extends Phaser.Scene {
             '/images/jefrens_foe.png',
             '/images/jefrens_foe.json'
         );
-        this.load.image('tiles', '/tilesets/jefrens_tilesheet.png');
+        this.load.image('tiles', '/tilesets/christmasTileset.png');
         // här laddar vi in en tilemap med spelets "karta"
         this.load.tilemapTiledJSON('map', '/tilemaps/level1.json');
     }

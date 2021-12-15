@@ -11,13 +11,8 @@ class PreloadScene extends Phaser.Scene {
         this.load.image('background', '/images/background.png');
         this.load.atlas(
             'player',
-            '/images/jefrens_hero.png',
-            '/images/jefrens_hero.json'
-        );
-        this.load.atlas(
-            'foe',
-            '/images/jefrens_foe.png',
-            '/images/jefrens_foe.json'
+            '/images/player.png',
+            '/images/player.json'
         );
         this.load.image('tiles', '/tilesets/christmasTileset.png');
         // här laddar vi in en tilemap med spelets "karta"

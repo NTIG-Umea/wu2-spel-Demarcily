@@ -123,9 +123,9 @@ class PlayScene extends Phaser.Scene {
         this.anims.create({
             key: 'walk',
             frames: this.anims.generateFrameNames('player', {
-                prefix: 'jefrens_',
+                prefix: 'walk_',
                 start: 1,
-                end: 4
+                end: 6
             }),
             frameRate: 10,
             repeat: -1
@@ -133,13 +133,21 @@ class PlayScene extends Phaser.Scene {
 
         this.anims.create({
             key: 'idle',
-            frames: [{ key: 'player', frame: 'jefrens_2' }],
-            frameRate: 10
+            frames: this.anims.generateFrameNames('player', {
+                prefix: 'idle_',
+                start: 1,
+                end: 4
+            }),
+            frameRate: 10,
+            repeat: -1
         });
-
         this.anims.create({
             key: 'jump',
-            frames: [{ key: 'player', frame: 'jefrens_5' }],
+            frames: this.anims.generateFrameNames('player', {
+                prefix: 'jump_',
+                start: 1,
+                end: 3
+            }),
             frameRate: 10
         });
     }

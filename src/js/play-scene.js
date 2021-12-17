@@ -7,7 +7,7 @@ class PlayScene extends Phaser.Scene {
         this.score = 0;
         this.gameOver = false;
         this.lives = 3;
-        this.spawnRate = 9;
+        this.spawnRate = 0;
 
         if (localStorage.getItem('Hscore') == null) {
             localStorage.setItem('Hscore', 0);
@@ -71,8 +71,6 @@ class PlayScene extends Phaser.Scene {
 
         this.scene.pause();
         this.scene.launch('MenuScene');
-
-        
     }
 
     update() {

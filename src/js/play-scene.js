@@ -7,7 +7,7 @@ class PlayScene extends Phaser.Scene {
         this.score = 0;
         this.gameOver = false;
         this.lives = 3;
-        this.spawnRate = 0;
+        this.spawnRate = 9;
 
         if (localStorage.getItem('Hscore') == null) {
             localStorage.setItem('Hscore', 0);
@@ -31,14 +31,12 @@ class PlayScene extends Phaser.Scene {
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(true);
 
-        this.foods = this.physics.add.group({
-            
-        });
+        this.foods = this.physics.add.group();
 
         for (let y = 0; y <= 13; y++) {
             this.food = this.foods.create(25 + (y*70), 0, 'food').setScale(0.5);
-            this.random = Math.round(Phaser.Math.Between(0, 10));
-            this.food.anims.play(this.random+"", true);
+            let random = Math.round(Phaser.Math.Between(0, 7));
+            this.food.anims.play(random + "", true);
         }
 
         this.foods.children.iterate(function (child) {
@@ -52,7 +50,7 @@ class PlayScene extends Phaser.Scene {
         this.physics.add.collider(this.icicles, this.platforms, this.destroyIcicle, null, this);
 
         this.physics.add.overlap(this.player, this.foods, this.collectFood, null, this);
-        this.playerHitbox = this.physics.add.overlap(this.player, this.icicles, this.hitBomb, null, this);
+        this.playerHitbox = this.physics.add.overlap(this.player, this.icicles, this.hitIcicle, null, this);
 
         this.text = this.add.text(16, 16, '', {
             fontSize: '20px',
@@ -77,24 +75,7 @@ class PlayScene extends Phaser.Scene {
 
     update() {
         if (this.keyReset.isDown) {
-            this.updateScore();
-            this.score = 0;
-            this.spawnRate = 0;
-            this.lives = 3;
-            this.gameover = false;
-            this.player.setPosition(50, 416);
-            this.foods.children.iterate(function (child) {
-                if(child != null){
-                    child.disableBody(true, true);
-                }
-            });
-            this.foods.children.iterate(function (child) {
-                let random = Math.round(Phaser.Math.Between(0, 10));
-                child.anims.play(random+"", true);
-                child.enableBody(true, child.x, 0, true, true);
-            });
-            this.updateText();
-            
+            this.ResetGame();
         }
 
         if (this.gameOver) {
@@ -103,7 +84,7 @@ class PlayScene extends Phaser.Scene {
 
         if (this.keyObj.isDown) {
             this.scene.pause();
-            this.updateScore();
+            this.updateHighScore();
             this.scene.launch('MenuScene');
         }
 
@@ -137,7 +118,11 @@ class PlayScene extends Phaser.Scene {
         }
 
         if (Math.random() * 10 > 10 - this.spawnRate) {
-            this.spawnIcicle();
+            var x = Phaser.Math.Between(0, 960);
+
+            this.icicle = this.icicles.create(x, 0, 'icicle');
+            this.icicle.setVelocity(Phaser.Math.Between(-50, 25), 15);
+            this.icicle.allowGravity = false;
         }
     }
 
@@ -228,8 +213,8 @@ class PlayScene extends Phaser.Scene {
 
         if (this.foods.countActive(true) == 0) {
             this.foods.children.iterate(function (child) {
-                let random = Math.round(Phaser.Math.Between(0, 10));
-                child.anims.play(random+"", true);
+                let random = Math.round(Phaser.Math.Between(0, 7));
+                child.anims.play(random + "", true);
                 child.enableBody(true, child.x, 0, true, true);
                 
             });
@@ -237,7 +222,7 @@ class PlayScene extends Phaser.Scene {
         }
     }
 
-    hitBomb(player, icile) {
+    hitIcicle(player, icile) {
         this.physics.world.removeCollider(this.playerHitbox);
         this.lives -= 1;
         this.updateText();
@@ -253,30 +238,22 @@ class PlayScene extends Phaser.Scene {
             });
         } else {
             this.physics.pause();
-            this.gameOver = true;
             this.player.setTint(0xff0000);
-            this.updateScore();
+            this.updateHighScore();
+            this.gameOver = true;
         }
-        var timer = this.time.addEvent({
-            delay: 3000,          
+        this.time.addEvent({
+            delay: 2000,          
             callback: this.restoreHitbox,
             callbackScope: this,
         });
        
     }
 
-    updateScore() {
+    updateHighScore() {
         if (this.score > localStorage.getItem('Hscore')) {
             localStorage.setItem('Hscore', this.score);
         }
-    }
-
-    spawnIcicle() {
-        var x = Phaser.Math.Between(0, 960);
-
-        this.icicle = this.icicles.create(x, 0, 'icicle');
-        this.icicle.setVelocity(Phaser.Math.Between(-50, 25), 15);
-        this.icicle.allowGravity = false;
     }
 
     destroyIcicle(icicle, platform) {
@@ -284,7 +261,42 @@ class PlayScene extends Phaser.Scene {
     }
 
     restoreHitbox() {
-        this.playerHitbox = this.physics.add.overlap(this.player, this.icicles, this.hitBomb, null, this);
+        this.playerHitbox = this.physics.add.overlap(this.player, this.icicles, this.hitIcicle, null, this);
+    }
+
+    ResetGame() {
+        this.physics.resume();
+        this.updateHighScore();
+        this.score = 0;
+        this.spawnRate = 0;
+        this.lives = 3;
+
+        this.player.setPosition(50, 416);
+        this.player.setSize(45, 50);
+        this.player.setOffset(10, 12);
+        this.player.clearTint();
+        this.gameOver = false;
+
+        this.foods.children.iterate(function (child) {
+            if(child != null){
+                child.disableBody(true, true);
+            }
+        });
+
+        this.foods.children.iterate(function (child) {
+            let random = Math.round(Phaser.Math.Between(0, 7));
+            child.anims.play(random + "", true);
+            child.enableBody(true, child.x, 0, true, true);
+        });
+
+        this.icicles.children.iterate(function (child) {
+            console.log(child);
+            child.destroy();
+        });
+
+        this.updateText();
+        
+
     }
 }
 

@@ -26,6 +26,8 @@ class PlayScene extends Phaser.Scene {
         this.platforms.setCollisionByExclusion(-1, true);
        
         this.player = this.physics.add.sprite(50, 416, 'player');
+        this.player.setSize(45, 50);
+        this.player.setOffset(10, 12);
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(true);
 

@@ -71,13 +71,15 @@ class PlayScene extends Phaser.Scene {
 
         this.scene.pause();
         this.scene.launch('MenuScene');
+
+        
     }
 
     update() {
         if (this.keyReset.isDown) {
-            this.ResetGame();
+           this.ResetGame();
         }
-
+        
         if (this.gameOver) {
             return;
         }
@@ -265,18 +267,6 @@ class PlayScene extends Phaser.Scene {
     }
 
     ResetGame() {
-        this.physics.resume();
-        this.updateHighScore();
-        this.score = 0;
-        this.spawnRate = 0;
-        this.lives = 3;
-
-        this.player.setPosition(50, 416);
-        this.player.setSize(45, 50);
-        this.player.setOffset(10, 12);
-        this.player.clearTint();
-        this.gameOver = false;
-
         this.foods.children.iterate(function (child) {
             if(child != null){
                 child.disableBody(true, true);
@@ -290,14 +280,26 @@ class PlayScene extends Phaser.Scene {
         });
 
         this.icicles.children.iterate(function (child) {
-            console.log(child);
-            child.destroy();
+            if(child != null) {
+                child.destroy();
+            }
         });
+        this.updateHighScore();
+        this.score = 0;
+        this.spawnRate = 0;
+        this.lives = 3;
+        this.physics.resume();
+
+        this.player.setPosition(50, 416);
+        this.player.setSize(45, 50);
+        this.player.setOffset(10, 12);
+        this.player.clearTint();
+        this.gameOver = false;
 
         this.updateText();
         
-
     }
+    
 }
 
 export default PlayScene;

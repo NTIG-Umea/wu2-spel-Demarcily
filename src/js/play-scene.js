@@ -30,10 +30,14 @@ class PlayScene extends Phaser.Scene {
         this.player.setCollideWorldBounds(true);
 
         this.foods = this.physics.add.group({
-            key: 'food',
-            repeat: 13,
-            setXY: { x: 25, y: 0, stepX: 70 }
+            
         });
+
+        for (let y = 0; y <= 13; y++) {
+            this.food = this.foods.create(25 + (y*70), 0, 'food').setScale(0.5);
+            this.random = Math.round(Phaser.Math.Between(0, 10));
+            this.food.anims.play(this.random+"", true);
+        }
 
         this.foods.children.iterate(function (child) {
             child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.4));
@@ -56,6 +60,7 @@ class PlayScene extends Phaser.Scene {
         this.updateText();
 
         this.keyObj = this.input.keyboard.addKey('space', true, false);
+        this.keyReset = this.input.keyboard.addKey('R', true, false);
 
         this.events.on('pause', function () {
             console.log('Play scene paused');
@@ -69,6 +74,27 @@ class PlayScene extends Phaser.Scene {
     }
 
     update() {
+        if (this.keyReset.isDown) {
+            this.updateScore();
+            this.score = 0;
+            this.spawnRate = 0;
+            this.lives = 3;
+            this.gameover = false;
+            this.player.setPosition(50, 416);
+            this.foods.children.iterate(function (child) {
+                if(child != null){
+                    child.disableBody(true, true);
+                }
+            });
+            this.foods.children.iterate(function (child) {
+                let random = Math.round(Phaser.Math.Between(0, 10));
+                child.anims.play(random+"", true);
+                child.enableBody(true, child.x, 0, true, true);
+            });
+            this.updateText();
+            
+        }
+
         if (this.gameOver) {
             return;
         }
@@ -115,7 +141,7 @@ class PlayScene extends Phaser.Scene {
 
     updateText() {
         this.text.setText(
-            `space to pause. Score: ${this.score}. Lives: ${this.lives}`
+            `R to reset. space to pause. Score: ${this.score}. Lives: ${this.lives}`
         );
     }
 
@@ -150,6 +176,47 @@ class PlayScene extends Phaser.Scene {
             }),
             frameRate: 10
         });
+
+        this.anims.create({
+            key: '0',
+            frames: [{ key: 'food', frame: 0 }],
+            frameRate: 20
+        });
+        this.anims.create({
+            key: '1',
+            frames: [{ key: 'food', frame: 1 }],
+            frameRate: 20
+        });
+        this.anims.create({
+            key: '2',
+            frames: [{ key: 'food', frame: 2 }],
+            frameRate: 20
+        });
+        this.anims.create({
+            key: '3',
+            frames: [{ key: 'food', frame: 3}],
+            frameRate: 20
+        });
+        this.anims.create({
+            key: '4',
+            frames: [{ key: 'food', frame: 4 }],
+            frameRate: 20
+        });
+        this.anims.create({
+            key: '5',
+            frames: [{ key: 'food', frame: 5 }],
+            frameRate: 20
+        });
+        this.anims.create({
+            key: '6',
+            frames: [{ key: 'food', frame: 6 }],
+            frameRate: 20
+        });
+        this.anims.create({
+            key: '7',
+            frames: [{ key: 'food', frame: 7 }],
+            frameRate: 20
+        });
     }
     
     collectFood(player, food) {
@@ -157,9 +224,12 @@ class PlayScene extends Phaser.Scene {
         this.score += 10;
         this.updateText();
 
-        if (this.foods.countActive(true) === 0) {
+        if (this.foods.countActive(true) == 0) {
             this.foods.children.iterate(function (child) {
+                let random = Math.round(Phaser.Math.Between(0, 10));
+                child.anims.play(random+"", true);
                 child.enableBody(true, child.x, 0, true, true);
+                
             });
             this.spawnRate += 0.1;
         }

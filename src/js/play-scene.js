@@ -154,6 +154,7 @@ class PlayScene extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
+
         this.anims.create({
             key: 'jump',
             frames: this.anims.generateFrameNames('player', {
@@ -164,46 +165,13 @@ class PlayScene extends Phaser.Scene {
             frameRate: 10
         });
 
-        this.anims.create({
-            key: '0',
-            frames: [{ key: 'food', frame: 0 }],
-            frameRate: 20
-        });
-        this.anims.create({
-            key: '1',
-            frames: [{ key: 'food', frame: 1 }],
-            frameRate: 20
-        });
-        this.anims.create({
-            key: '2',
-            frames: [{ key: 'food', frame: 2 }],
-            frameRate: 20
-        });
-        this.anims.create({
-            key: '3',
-            frames: [{ key: 'food', frame: 3}],
-            frameRate: 20
-        });
-        this.anims.create({
-            key: '4',
-            frames: [{ key: 'food', frame: 4 }],
-            frameRate: 20
-        });
-        this.anims.create({
-            key: '5',
-            frames: [{ key: 'food', frame: 5 }],
-            frameRate: 20
-        });
-        this.anims.create({
-            key: '6',
-            frames: [{ key: 'food', frame: 6 }],
-            frameRate: 20
-        });
-        this.anims.create({
-            key: '7',
-            frames: [{ key: 'food', frame: 7 }],
-            frameRate: 20
-        });
+        for (let i = 0; i < 8; i++ ) {
+            this.anims.create({
+                key: i + "",
+                frames: [{ key: 'food', frame: i}],
+                frameRate: 20
+            });
+        }
     }
     
     collectFood(player, food) {
